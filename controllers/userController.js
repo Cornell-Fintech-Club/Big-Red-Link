@@ -58,7 +58,7 @@ const loginUser = async (req, res) => {
     // Check if the user exists in the database
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+      return res.status(400).json({ error: 'Could not find user' });
     }
 
     // Compare the provided password with the stored hashed password
