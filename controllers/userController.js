@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
     // Compare the provided password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: 'Password not working gangalicious' });
+      return res.status(400).json({ error: 'Password not working gangalicious', providedPassword: password });
     }
 
     // Generate a response indicating successful login
