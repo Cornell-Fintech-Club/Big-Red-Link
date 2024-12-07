@@ -157,4 +157,5 @@ module.exports = {
   depositMoney,
   withdraw,
   getUserBalance, 
+  getAllUsers
 };
