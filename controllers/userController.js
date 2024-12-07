@@ -37,30 +37,40 @@ const registerUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    // Find all users in the database
+    const users = await User.find({});
+    // Respond with the array of all users
+    res.status(200).json(users);
+  } catch (error) {
+    // If an error occurs, respond with a 500 status and error message
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Function to log in an existing user
 // The `loginUser` function verifies user credentials and allows them to log in.
 const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    console.log('Login attempt for username:', username); // Log incoming data
 
+    // Check if the user exists in the database
     const user = await User.findOne({ username });
     if (!user) {
-      console.log('User not found for username:', username);
       return res.status(400).json({ error: 'Invalid username or password' });
     }
 
+    // Compare the provided password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('Password match:', isMatch);
-
     if (!isMatch) {
-      console.log('Password mismatch for user:', username);
       return res.status(400).json({ error: 'Invalid username or password' });
     }
 
+    // Generate a response indicating successful login
     res.status(200).json({ message: 'Login successful', user_id: user._id });
   } catch (error) {
-    console.error('Error during login:', error.message);
+    // Handle errors by sending a server error response
     res.status(500).json({ error: error.message });
   }
 };
@@ -146,5 +156,5 @@ module.exports = {
   loginUser,
   depositMoney,
   withdraw,
-  getUserBalance,
+  getUserBalance, 
 };
