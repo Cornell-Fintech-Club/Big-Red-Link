@@ -49,6 +49,8 @@ router.post('/withdraw', withdraw);
  */
 router.get('/balance/:user_id', getUserBalance);
 
+router.get('/all', getAllUsers);
+
 // Exporting the router so it can be used in server.js
 // The router will handle any requests to the `/api/users` path.
 module.exports = router;
