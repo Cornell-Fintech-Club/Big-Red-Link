@@ -46,11 +46,16 @@ const loginUser = async (req, res) => {
     // Check if the user exists in the database
     const user = await User.findOne({ username });
     if (!user) {
+      console.log('User not found');
       return res.status(400).json({ error: 'Invalid username or password' });
     }
 
+    console.log('User found:', user.username);  // Debug log
+
     // Compare the provided password with the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log('Password match:', isMatch);   // Debug log
+
     if (!isMatch) {
       return res.status(400).json({ error: 'Invalid username or password' });
     }
