@@ -3,7 +3,7 @@ const express = require('express');
 
 // Importing user controller functions
 // These functions are defined in userController.js and handle the logic for each route.
-const { registerUser, loginUser, depositMoney, withdraw, getUserBalance } = require('../controllers/userController');
+const { registerUser, loginUser, depositMoney, withdraw, getUserBalance, getAllUsers } = require('../controllers/userController');
 
 // Creating a new Express router
 // A router allows us to define paths and link them to specific logic or middleware.
