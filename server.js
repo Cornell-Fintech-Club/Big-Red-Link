@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 
 // Default Home Route
 app.get('/', (req, res) => {
-  res.send('Welcome to BigRedLink Multi-Bank Backend (Node.js + Express)');
+  res.send('Welcome to BigRedLink Backend (Node.js + Express)');
 });
 
 // Start the server
