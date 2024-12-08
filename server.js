@@ -44,20 +44,27 @@ const initializeConnections = async () => {
   }
 };
 
-// Call the initialization function
+// After calling initializeConnections and printing Bank Connections:
 initializeConnections();
 console.log('Bank Connections:', bankConnections);
 
+// Make the bank connections available throughout the app
+app.set('bankConnections', bankConnections);
 
+app.use('/api/cross-bank/transactions', require('./routes/transactions'));
+
+console.log("Cross-bank transactions route mounted");
+
+// Existing middleware for bank-specific routes
 app.use((req, res, next) => {
-  console.log('Base URL:', req.baseUrl); // Log the base URL
-  console.log('Full URL:', req.originalUrl); // Log the full URL
+  console.log('Base URL:', req.baseUrl);
+  console.log('Full URL:', req.originalUrl);
 
   // Check if the URL matches the pattern for bank routes
   const match = req.originalUrl.match(/\/api\/(bank-[a-c])\//); // Match bank-a, bank-b, bank-c
   const bank = match ? match[1] : null;
 
-  console.log('Extracted Bank Identifier:', bank); // Log the extracted bank identifier
+  console.log('Extracted Bank Identifier:', bank);
 
   // If the request is not for a bank-specific route, skip database logic
   if (!bank) {
@@ -73,8 +80,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 // Set up routes dynamically for each bank
 ['bank-a', 'bank-b', 'bank-c'].forEach((bank) => {
   app.use(`/api/${bank}/users`, userRoutes);
@@ -83,7 +88,7 @@ app.use((req, res, next) => {
 
 // Default Home Route
 app.get('/', (req, res) => {
-  res.send('Welcome to BigRedLink Backend (Node.js + Express)');
+  res.send('Welcome to BigRedLink Multi-Bank Backend (Node.js + Express)');
 });
 
 // Start the server
