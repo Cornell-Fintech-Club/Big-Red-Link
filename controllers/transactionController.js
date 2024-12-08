@@ -93,7 +93,7 @@ const getUserTransactions = async (req, res) => {
   }
 };
 
-// Do the same for createTransaction if it also references Transaction directly:
+// do the same for createTransaction if it also references Transaction directly:
 const createTransaction = async (req, res) => {
   try {
     const dbConnection = req.dbConnection;
