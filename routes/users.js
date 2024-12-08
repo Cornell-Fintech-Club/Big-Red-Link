@@ -1,56 +1,26 @@
-// Importing Express to create a router instance
 const express = require('express');
+const { registerUser, loginUser, depositMoney, withdraw, getUserBalance } = require('../controllers/userController');
 
-// Importing user controller functions
-// These functions are defined in userController.js and handle the logic for each route.
-const { registerUser, loginUser, depositMoney, withdraw, getUserBalance, getAllUsers } = require('../controllers/userController');
-
-// Creating a new Express router
-// A router allows us to define paths and link them to specific logic or middleware.
 const router = express.Router();
 
-/**
- * @route POST /api/users/register
- * @description Register a new user
- * @access Public
- * This route is used to register a new user. It calls the `registerUser` function from the user controller.
- */
-router.post('/register', registerUser);
+// Wrap each route to dynamically use req.dbConnection
+const withDatabase = (controller) => async (req, res) => {
+  try {
+    if (!req.dbConnection) {
+      return res.status(500).json({ error: 'Database connection not found' });
+    }
+    await controller(req, res, req.dbConnection);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
-/**
- * @route POST /api/users/login
- * @description Login user
- * @access Public
- * This route allows a user to log in with their username and password. It calls the `loginUser` function from the user controller.
- */
-router.post('/login', loginUser);
+// Updated routes to use the `withDatabase` wrapper
+router.post('/register', withDatabase(registerUser));
+router.post('/login', withDatabase(loginUser));
+router.post('/deposit', withDatabase(depositMoney));
+router.post('/withdraw', withDatabase(withdraw));
+router.get('/balance/:user_id', withDatabase(getUserBalance));
 
-/**
- * @route POST /api/users/deposit
- * @description Deposit money into user account
- * @access Public
- * This route allows a user to deposit money into their account. It calls the `depositMoney` function from the user controller.
- */
-router.post('/deposit', depositMoney);
-
-/**
- * @route POST /api/users/withdraw
- * @description Withdraw money from user account
- * @access Public
- * This route allows a user to withdraw money from their account. It calls the `withdraw` function from the user controller.
- */
-router.post('/withdraw', withdraw);
-
-/**
- * @route GET /api/users/balance/:user_id
- * @description Get the balance of a user
- * @access Public
- * This route retrieves the balance for a specific user based on their user ID. It calls the `getUserBalance` function from the user controller.
- */
-router.get('/balance/:user_id', getUserBalance);
-
-router.get('/all', getAllUsers);
-
-// Exporting the router so it can be used in server.js
-// The router will handle any requests to the `/api/users` path.
 module.exports = router;
