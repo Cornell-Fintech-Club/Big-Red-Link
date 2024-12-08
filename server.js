@@ -9,7 +9,7 @@ const connectDB = require('./config/db');  // Import the database connection fun
 // Importing route handlers
 const userRoutes = require('./routes/users'); // Routes for user-related operations (register, login, etc.)
 const transactionRoutes = require('./routes/transactions'); // Routes for transaction-related operations
-const bankSelector = require('./middleware/bankSelector');
+
 // Initialize Express application
 const app = express();
 const PORT = process.env.PORT || 8000; // Define the port to run the server, using environment variable PORT if available, otherwise default to 8000
@@ -36,8 +36,6 @@ console.log('MONGO_URI_BANK_C:', process.env.MONGO_URI_BANK_C);
 
 // Establish the connection to MongoDB
 connectDB(); // This function connects to the MongoDB database using the provided URI
-
-app.use(bankSelector); // Applies the middleware to all incoming requests
 
 // Set up routes
 /**

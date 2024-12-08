@@ -9,10 +9,9 @@ const registerUser = async (req, res) => {
   try {
     const { first_name, last_name, username, password, balance } = req.body;
 
-    const user = req.db.model('User', User.schema);  // Access the User model for the specific database connection
-
-    let existingUser = await user.findOne({ username });
-    if (existingUser) {
+    // Check if a user with the provided username already exists
+    let user = await User.findOne({ username });
+    if (user) {
       return res.status(400).json({ error: 'Username already exists' });
     }
 
