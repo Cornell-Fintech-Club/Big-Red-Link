@@ -30,7 +30,9 @@ app.use(cors());
 app.use(express.json());
 
 // Debugging line to check the MongoDB connection URI from the environment variables
-console.log('MONGO_URI:', process.env.MONGO_URI);  // This is useful for debugging if the URI is being correctly loaded
+console.log('MONGO_URI_BANK_A:', process.env.MONGO_URI_BANK_A);
+console.log('MONGO_URI_BANK_B:', process.env.MONGO_URI_BANK_B);
+console.log('MONGO_URI_BANK_C:', process.env.MONGO_URI_BANK_C);
 
 // Establish the connection to MongoDB
 connectDB(); // This function connects to the MongoDB database using the provided URI
