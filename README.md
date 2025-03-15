@@ -1,4 +1,4 @@
-# BigRedLink
+# Big Red Link
 
 BigRedLink is a secure platform that connects financial accounts to selected apps and services, ensuring safe data sharing, seamless integration with Cornell services, and full user control over access.
 
@@ -48,5 +48,6 @@ BigRedLink is a secure platform that connects financial accounts to selected app
 ## Project Structure
 
 ## Contributors
-Alyssa Hsu, Steven Lin, Kai Patragnoni, Jason Chen, Eddie Ramirez, Kevin Biliguun, Kevin Hu
-
+- TPM/PMs: Eddie, Kevin, Jiye, Saanvi, Rohan, Kevin
+- BAs: Tejas, Michael 
+- SWEs: Kevin, Eddie, Alyssa, Steven, Kai, Jason, Kevin
