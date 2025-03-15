@@ -1,0 +1,17 @@
+@tailwind base;
+/* 
+    Imports Tailwind's base styles.
+    These include browser reset styles and common base-level styles for elements like body, headings, paragraphs, etc.
+*/
+
+@tailwind components;
+/* 
+    Imports Tailwind's component-level styles.
+    These are pre-designed classes that add specific styling to different components, such as buttons, cards, forms, etc.
+*/
+
+@tailwind utilities;
+/* 
+    Imports Tailwind's utility classes.
+    These classes are atomic and provide a quick way to add custom styling such as padding, margin, text color, background color, etc.
+*/
